@@ -18,6 +18,7 @@
 	2. pyenv install 3.13.3 (instala versão python)
 	3. pyenv virtualenv 3.13.3 env (cria ambiente virtual com versão instalada)
 	4. pip install -r requirements.txt (instala dependências)
-
+	 
+	alternativa rode o Makefile : make set_env
 #  Execute
 	1.python -m src
