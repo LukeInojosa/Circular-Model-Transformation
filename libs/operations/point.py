@@ -13,6 +13,12 @@ class Sphere:
             diff_center.z = math.sqrt(self.radius**2 - mod)
         return diff_center
 
+    def project_in_plane(self,point):
+        point = point * point.z
+        point_in_sphere = point.normalize(self.radius)
+        projection = Point(point_in_sphere.x, point_in_sphere.y)//1
+        return projection     
+
     def __repr__(self):
         return "Esphere(center = {}, radius = {})".format(self.center,self.radius)
 
@@ -38,6 +44,12 @@ class Point:
 
     def __mul__(self,value):
         return Point(self.x*value, self.y*value, self.z*value)
+    
+    def __truediv__(self,value):
+        return Point(self.x/value, self.y/value, self.z/value)
+
+    def __floordiv__(self,value):
+        return Point(int(self.x//value), int(self.y//value), int(self.z//value))
 
     def __and__(self,point):
         return self.x*point.x + self.y*point.y + self.z*point.z
@@ -50,7 +62,11 @@ class Point:
     
     def dot(self, point):
         return self.x*point.x + self.y*point.y + self.z*point.z
-    
+
+    def normalize(self,value = 1):
+        scale = value/module(self)
+        return self*scale
+
     def cross(self,point):
         x = self.y*point.z-self.z*point.y
         y = self.x*point.z - self.z*point.x

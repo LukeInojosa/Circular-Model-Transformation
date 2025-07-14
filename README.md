@@ -15,8 +15,8 @@
 
 # Execute uma única vez: 
 
-	2. pyenv install [versão python] (instala versão python)
-	3. pyenv virtualenv [versão python] [nome do ambiente] (cria ambiente virtual com versão instalada)
+	2. pyenv install 3.13.3 (instala versão python)
+	3. pyenv virtualenv 3.13.3 env (cria ambiente virtual com versão instalada)
 	4. pip install -r requirements.txt (instala dependências)
 
 #  Execute
