@@ -20,3 +20,4 @@
 	4. pip install -r requirements.txt (instala dependências)
 
 #  Execute
+	1.python -m src
