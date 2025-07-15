@@ -33,6 +33,7 @@ class Window:
         top = bottom = int(1.5*diagonal - rows)//2
         left = right = int(1.5*diagonal - cols)//2
         image_with_border = cv.copyMakeBorder(image, top, bottom, left, right, cv.BORDER_CONSTANT,None,value = 0)
+        self.image = image_with_border.copy()
 
         # adiciona circulo na imagem
         rows, cols = image_with_border.shape[:2] 
@@ -40,9 +41,17 @@ class Window:
         radius = int(1.2*diagonal)//2
         self.sphere = Sphere(Point(*center),radius)
         cv.circle(image_with_border, center, radius, (255,0,0), thickness = 2)
-
+        
         # adiciona imagem na janela
         cv.imshow(self.window_name,image_with_border)
+    
+    def get_points(self):
+        if(len(self.X) == len(self.Y) == 4):
+            result = (self.X,self.Y)
+            self.X = []
+            self.Y = []
+            return result
+        return []
 
     def mouse_callback(self,event,x,y,flags,param):
         if event == cv.EVENT_LBUTTONDBLCLK:

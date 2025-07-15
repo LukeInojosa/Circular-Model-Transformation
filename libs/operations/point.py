@@ -1,5 +1,5 @@
 import math
-
+from numbers import Number
 
 class Sphere:
     def __init__(self, center, radius):
@@ -16,7 +16,7 @@ class Sphere:
     def project_in_plane(self,point):
         point = point * point.z
         point_in_sphere = point.normalize(self.radius)
-        projection = Point(point_in_sphere.x, point_in_sphere.y)//1
+        projection = self.center+Point(point_in_sphere.x, point_in_sphere.y)//1
         return projection     
 
     def __repr__(self):
@@ -29,7 +29,7 @@ class Point:
         self.z = z
 
     @classmethod
-    def from_tuple(cls,t):
+    def from_list(cls,t):
         return cls(*t)
         
 
@@ -43,8 +43,18 @@ class Point:
         return Point(-self.x,-self.y,-self.z)
 
     def __mul__(self,value):
-        return Point(self.x*value, self.y*value, self.z*value)
+        # multiplicação por escalar
+        if(isinstance(value,Number)):
+            return Point(self.x*value, self.y*value, self.z*value)
+        # multiplicação por outro ponto
+        if(type(value) == type(Point())): 
+            return self.x*value.x + self.y*value.y + self.z*value.z
+
+        return NotImplemented
     
+    def __rmul__(self,value):
+        return self*value
+
     def __truediv__(self,value):
         return Point(self.x/value, self.y/value, self.z/value)
 
@@ -64,7 +74,7 @@ class Point:
         return self.x*point.x + self.y*point.y + self.z*point.z
 
     def normalize(self,value = 1):
-        scale = value/module(self)
+        scale = value/self.module()
         return self*scale
 
     def cross(self,point):
