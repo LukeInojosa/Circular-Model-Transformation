@@ -1,6 +1,7 @@
 from libs.interface import interface
 from libs.operations.point import Point
 from libs.operations.matrix import Matrix
+from datetime import datetime
 import cv2 as cv
 import numpy as np
 
@@ -40,7 +41,9 @@ if __name__ == "__main__":
                     point_transform = transform*point
                     point_in_plane = window.sphere.project_in_plane(point_transform)
                     dest_image[i][j] = image[point_in_plane.x][point_in_plane.y] 
-            cv.imwrite("data/dest.png",dest_image)
+
+            name = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+            cv.imwrite("data/"+name+".png",dest_image)
             print("conversão realizada com sucesso")
 
     cv.destroyAllWindows()

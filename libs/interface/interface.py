@@ -46,7 +46,7 @@ class Window:
         cv.imshow(self.window_name,image_with_border)
     
     def get_points(self):
-        if(len(self.X) == len(self.Y) == 4):
+        if(len(self.X) == 4 and len(self.Y) == 4):
             result = (self.X,self.Y)
             self.X = []
             self.Y = []
