@@ -14,7 +14,10 @@ class Sphere:
         return diff_center
 
     def project_in_plane(self,point):
-        point = point * point.z
+        sign = 1
+        if(point.z < 0):
+            sign = -1
+        point = point*sign
         point_in_sphere = point.normalize(self.radius)
         projection = self.center+Point(point_in_sphere.x, point_in_sphere.y)//1
         return projection     

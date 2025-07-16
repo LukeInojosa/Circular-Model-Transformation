@@ -19,6 +19,7 @@ class Window:
         # transformation points
         self.X = []
         self.Y = []
+        self.dest_point = []
     
     def put_image(self,image_name):
         # carrega imagem
@@ -33,8 +34,8 @@ class Window:
         top = bottom = int(1.5*diagonal - rows)//2
         left = right = int(1.5*diagonal - cols)//2
         image_with_border = cv.copyMakeBorder(image, top, bottom, left, right, cv.BORDER_CONSTANT,None,value = 0)
+        self.display = image_with_border
         self.image = image_with_border.copy()
-
         # adiciona circulo na imagem
         rows, cols = image_with_border.shape[:2] 
         center = (rows//2,cols//2)
@@ -54,16 +55,21 @@ class Window:
         return []
 
     def mouse_callback(self,event,x,y,flags,param):
-        if event == cv.EVENT_LBUTTONDBLCLK:
+        if event == cv.EVENT_LBUTTONDBLCLK and flags != Window.EVENT_CTRLKEYACTIVE:
             if len(self.X) < 4:
+                print("x",(x,y))
+                cv.circle(self.display,center = (x,y),radius = 10, color = (255,0,0),thickness=-1)
+                cv.imshow(self.window_name,self.display)
                 point = Point(x,y)
                 point_in_sphere = self.sphere.raise_to_sphere(point)
                 self.X.append(point_in_sphere)
-                print(self.X)
 
         if event == cv.EVENT_LBUTTONDBLCLK and flags == Window.EVENT_CTRLKEYACTIVE:
             if len(self.Y) < 4:
+                print("y",(x,y))
+                cv.circle(self.display,center = (x,y),radius = 10,color = (0,255,0),thickness=-1)
+                cv.imshow(self.window_name,self.display)
+                self.dest_point.append((x,y))
                 point = Point(x,y)
                 point_in_sphere = self.sphere.raise_to_sphere(point)
                 self.Y.append(point_in_sphere)
-                print(self.Y)
