@@ -1,4 +1,5 @@
 # Circular-Model-Transformation
+Projeto de Visão Computacional que realiza uma transformação projetiva de uma imagem no sistema circular.
 
 # Pyenv Use:
 
